@@ -2,23 +2,17 @@
 #include <clocale>
 #include <Windows.h>
 
-struct Address
+struct BankAccount
 {
-    std::string city; // Город
-    std::string street; // Улица
-    std::string house; // Номер дома (строка потому что в номере может быть буква)
-    int apartment; // Номер квартиры
-    int index; // Индекс
+    long accountNumber{};
+    std::string name;
+    double balance{};
 };
 
-void printAddress(Address& address)
+void accountBalanceChanges(BankAccount& bankAccount, double balance)
 {
-    std::cout << "Город: " << address.city << std::endl;
-    std::cout << "Улица: " << address.street << std::endl;
-    std::cout << "Номер дома: " << address.house << std::endl;
-    std::cout << "Номер квартиры: " << address.apartment << std::endl;
-    std::cout << "Индекс: " << address.index << std::endl;
-};
+    bankAccount.balance = balance;
+}
 
 int main()
 {
@@ -26,26 +20,25 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    Address address;
-    std::cout << "Город: ";
-    std::cin >> address.city;
+    BankAccount bankAccount;
 
-    std::cout << "Улица: ";
-    std::cin >> address.street;
+    std::cout << "Введите номер счёта: ";
+    std::cin >> bankAccount.accountNumber;
 
-    std::cout << "Номер дома: ";
-    std::cin >> address.house;
+    std::cout << "Введите имя владельца: ";
+    std::cin >> bankAccount.name;
 
-    std::cout << "Номер квартиры: ";
-    std::cin >> address.apartment;
+    double balance;
+    std::cout << "Введите баланс: ";
+    std::cin >> balance;
 
-    std::cout << "Индекс: ";
-    std::cin >> address.index;
+    accountBalanceChanges(bankAccount, balance);
 
-    std::cout << std::endl;
+    std::cout << "Введите новый баланс: ";
+    std::cin >> balance;
 
-    printAddress(address);
+    accountBalanceChanges(bankAccount, balance);
 
-    return 0;
+    std::cout << "Ваш счёт: " << bankAccount.name << ", " << bankAccount.accountNumber << ", " << bankAccount.balance << std::endl;
 
 }
